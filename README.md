@@ -2,12 +2,15 @@
 Terrain CE is currently an experiment of mine in generating a height map and representing it like terrain in an isometric view.
 
 Isometric:
+
 ![Isometric View](https://raw.githubusercontent.com/Michael2-3B/Terrain-CE/master/isometry.png)
 
 Top:
+
 ![Top Down View](https://raw.githubusercontent.com/Michael2-3B/Terrain-CE/master/topdown.png)
 
 Runthrough:
+
 ![Runthrough of Program Gif](https://raw.githubusercontent.com/Michael2-3B/Terrain-CE/master/runthrough.png)
 
 Blue represents a low area, and black is a high area.
