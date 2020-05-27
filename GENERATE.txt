@@ -1,0 +1,88 @@
+//Initialize Program
+ClrHome
+Float
+0->Xmin:264->Xmax
+~164->Ymin:0->Ymax
+16->N
+Input "SEED:",theta
+theta->rand
+DelVar [A]{N,N->dim([A]
+25->[A](1,1
+~1->C
+100/(2N-2->G
+Ans->P
+//Generate Map
+For(A,1,N
+	Output(2,1,toString(int(P))+"%
+	P+G->P
+	For(B,1,N
+		If C=~1
+		DelVar C2->B
+		If A=1
+		[A](A,B-1)+randInt(~1,1->R
+		If A>1 and B=1
+		[A](A-1,B)+randInt(~1,1->R
+		If A>1 and B>1
+		Then
+			If [A](A,B-1)!=[A](A-1,B
+			Then
+				int(median({[A](A,B-1),[A](A-1,B->R
+			Else
+				[A](A,B-1)+randInt(~1,1->R
+			End
+		End
+		If R<20:20->R
+		If R>25:25->R
+		R->[A](A,B
+	End
+End
+//Smooth Corners
+If [A](1,1)!=[A](2,1) and [A](2,1)=[A](1,2
+[A](2,1)->[A](1,1
+If [A](1,N)!=[A](2,N) and [A](2,N)=[A](1,N-1
+[A](2,N)->[A](1,N
+If [A](N,1)!=[A](N,2) and [A](N,2)=[A](N-1,1
+[A](N,2)->[A](N,1
+If [A](N,N)!=[A](N-1,N) and [A](N-1,N)=[A](N,N-1
+[A](N-1,N)->[A](N,N
+//Smooth Edges
+For(C,2,N-1
+	If [A](1,C)!=[A](1,C-1) and not(variance({[A](1,C-1),[A](2,C),[A](1,C+1
+	[A](1,C-1)->[A](1,C
+End
+For(C,2,N-1
+	If [A](C,1)!=[A](C-1,1) and not(variance({[A](C-1,1),[A](C,2),[A](C+1,1
+	[A](C-1,1)->[A](C,1
+End
+For(C,2,N-1
+	If [A](C,N)!=[A](C-1,N) and not(variance({[A](C-1,N),[A](C,N-1),[A](C+1,N
+	[A](C-1,N)->[A](C,N
+End
+For(C,2,N-1
+	If [A](N,C)!=[A](N,C-1) and not(variance({[A](N,C-1),[A](N-1,C),[A](N,C+1
+	[A](N,C-1)->[A](N,C
+End
+//Smooth Everything Else Inside Matrix
+For(A,2,N-1
+	Output(2,1,toString(int(P))+"%
+	P+G->P
+	For(B,2,N-1
+		If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
+		[A](A-1,B)->[A](A,B
+	End
+End
+
+//Display Map
+ClrHome
+ClrDraw
+7N
+Line(Ans,0,Ans,~Ans,BLACK
+Line(0,~Ans,Ans,~Ans,BLACK
+For(B,0,N-1
+	For(A,0,N-1
+		[A](A+1,B+1
+		Ans-13(Ans=25)-2(Ans=20
+		Pt-On(7A+3,~7B-3,1,Ans
+		Pt-On(7A+3,~7B-3,2,Ans
+	End
+End
