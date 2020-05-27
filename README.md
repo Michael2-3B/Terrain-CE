@@ -1,5 +1,8 @@
 # Terrain-CE
-Terrain CE is currently an experiment of mine in generating a height map and representing it like terrain in an isometric view.
+Terrain CE is currently a TI-Basic experiment of mine in generating a height map and representing it like terrain in an isometric view.
+
+Download here: https://github.com/Michael2-3B/Terrain-CE/raw/master/TERRAIN.8xg
+(You will get a GENERATE.8xp file and a DISPLAY.8xp file, which must be run in that order.)
 
 Isometric:
 
