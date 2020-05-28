@@ -1,0 +1,62 @@
+ClrDraw
+2->R
+16->N
+BackgroundOn DARKGRAY
+
+//Draw MiniMap
+RED
+Line(3,~3,3,~52,Ans,1
+Line(3,~3,52,~3,Ans,1
+Line(3,~52,52,~52,Ans,1
+Line(52,~3,52,~52,Ans,1
+For(B,0,N-1
+	For(A,0,N-1
+		[A](A+1,B+1
+		Ans-13(Ans=25)-2(Ans=20
+		Pt-On(3A+5,~3B-5,1,Ans
+	End
+End
+
+//Draw Isometric Terrain
+For(A,1,BROWN //substituting values in For loops with colors
+	~80-R(A-1->S
+	132-6A->T
+	For(B,1,BROWN
+		[A](B,A)-19->V
+		BROWN+2(Ans<2)+3(Ans=2->C
+		BLACK-2(Ans=LTBLUE->O
+		If randInt(0,1) and V>2
+		MEDGRAY->C
+		T+6B->X
+		S-BR-R+6(V-1->Z
+		S-BR+6V-R
+		
+		//Fill Box
+		For(I,Z-R+1,Ans+R-2
+			Line(X-5,I,X+5,I,C,1
+		End
+		
+		//Complete rest of fill at top
+		Line(X-2R,Ans+R-2,X+2R,Ans+R-2,C,1
+		Line(X-R,Ans+R-1,X+R,Ans+R-1,C,1
+		
+		//Draw grass
+		If V>2 and C!=MEDGRAY
+		Then
+			For(I,0,3,.2
+				Line(X-6+2I,Ans-I,X+2I,Ans+R-I,GREEN,1
+			End
+		End
+		
+		//Draw main vertical edge facing camera
+		Line(X,Z-R,X,Ans-R,O,1
+		
+		//Other edges
+		For(I,~6,6,BLACK
+			Line(X+I,Z,X,Z-R,O,1
+			Line(X+I,Ans,X+I,Z,O,1
+			Line(X,Ans+R,X+I,Ans,O,1
+			Line(X+I,Ans,X,Ans-R,O,1
+		End
+	End
+End

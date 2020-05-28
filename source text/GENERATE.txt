@@ -3,17 +3,24 @@ ClrHome
 Float
 0->Xmin:264->Xmax
 ~164->Ymin:0->Ymax
+GridOff:AxesOff
 16->N
 Input "SEED:",theta
-theta->rand
+If theta=0:Then
+	startTmr->theta
+	Ans->rand
+Else
+	theta->rand
+End
 DelVar [A]{N,N->dim([A]
-25->[A](1,1
+randInt(20,25->[A](1,1
 ~1->C
 100/(2N-2->G
 Ans->P
 //Generate Map
+Output(2,1,"Generating...
 For(A,1,N
-	Output(2,1,toString(int(P))+"%
+	Output(3,1,toString(int(P))+"%
 	P+G->P
 	For(B,1,N
 		If C=~1
@@ -64,7 +71,7 @@ For(C,2,N-1
 End
 //Smooth Everything Else Inside Matrix
 For(A,2,N-1
-	Output(2,1,toString(int(P))+"%
+	Output(3,1,toString(int(P))+"%
 	P+G->P
 	For(B,2,N-1
 		If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
