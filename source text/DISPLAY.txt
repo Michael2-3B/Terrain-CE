@@ -1,6 +1,6 @@
 ClrDraw
 2->R
-BROWN->N
+16->N
 BackgroundOn DARKGRAY
 
 //Draw MiniMap
@@ -24,42 +24,40 @@ For(A,1,BROWN //substituting values in For loops with colors
 	132-6A->T
 	For(B,1,BROWN
 		[A](B,A)-19->V
-		BROWN+2(Ans<2)+3(Ans=2->C
+		BROWN+2(Ans<2)+3(Ans=2->I%
 		BLACK-2(Ans=LTBLUE->O
-		If V>2 and randInt(0,1
-		MEDGRAY->C
-		T+6B->X
+		If V>2
+		I%+6(rand>.5->I%
+		T+6B->|N
 		S-BR-R+6(V-1->Z
 		S-BR+6V-R
 		
 		//Fill Box
-		For(I,Z-R+1,Ans+R-2
-			Line(X-5,I,X+5,I,C,1
+		For(I,Z,Ans,2
+			Line(|N-5,I,|N+5,I,I%
 		End
-		Pt-Off(X-5,Z-R+1,4
-		Pt-Off(X+5,Z-R+1,4
-		
-		//Complete rest of fill at top
-		Line(X-2R,Ans+R-2,X+2R,Ans+R-2,C,1
-		Line(X-R,Ans+R-1,X+R,Ans+R-1,C,1
-		
-		//Draw grass
-		If V>2 and C!=MEDGRAY
+		Pt-Off(|N-5,Z-R+1,4
+		Pt-Off(|N+5,Z-R+1,4
+		Line(|N-R,Ans+R-1,|N+R,Ans+R-1,I%,1
+
+		//Draw Grass
+		If V>2 and I%!=MEDGRAY
 		Then
-			For(I,0,3,.249
-				Line(X-6+2I,Ans-I,X+2I,Ans+R-I,GREEN,1
+			For(I,0,2
+				Line(|N-5+2I,Ans-I,|N+2I,Ans+1,GREEN
 			End
+			Line(|N,Ans-3,|N+6,Ans+R-3,GREEN,1
 		End
 		
-		//Draw main vertical edge facing camera
-		Line(X,Z-R,X,Ans-R,O,1
-		
-		//Other edges
-		For(I,~6,6,BLACK
-			Line(X+I,Z,X,Z-R,O,1
-			Line(X+I,Ans,X+I,Z,O,1
-			Line(X,Ans+R,X+I,Ans,O,1
-			Line(X+I,Ans,X,Ans-R,O,1
+		//Draw Main Vertical Edge
+		Line(|N,Z-R,|N,Ans-R,O,1
+
+		//Other Edges
+		For(I,~6,6,Black
+			Line(|N+I,Z,|N,Z-R,O,1
+			Line(|N+I,Ans,|N+I,Z,O,1
+			Line(|N,Ans+R,|N+I,Ans,O,1
+			Line(|N+I,Ans,|N,Ans-R,O,1
 		End
 	End
 End

@@ -19,7 +19,7 @@ randInt(20,25->[A](1,1
 100/(2N-2->G
 Ans->P
 //Generate Map
-Disp "Generating...
+Output(9,1,"Generating...
 For(A,1,N
 	Output(10,1,toString(int(P))+"%
 	P+G->P

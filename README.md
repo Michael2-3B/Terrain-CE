@@ -2,7 +2,7 @@
 Terrain CE is currently a TI-Basic experiment of mine in generating a height map and representing it like terrain in an isometric view.
 
 Download here: https://github.com/Michael2-3B/Terrain-CE/raw/master/TERRAIN.8xg
-(You will get a GENERATE.8xp file and a DISPLAY.8xp file, which must be run in that order; unless you have a 16x16 matrix in [A] already generated.)
+(You will get a GENERATE.8xp file and a DISPLAY.8xp file, make sure to run GENERATE.8xp first and only run DISPLAY.8xp if you already a 16x16 map in matrix [A].
 
 Examples:
 
