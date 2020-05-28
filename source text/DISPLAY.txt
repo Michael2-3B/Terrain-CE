@@ -1,6 +1,6 @@
 ClrDraw
 2->R
-16->N
+BROWN->N
 BackgroundOn DARKGRAY
 
 //Draw MiniMap
@@ -13,19 +13,20 @@ For(B,0,N-1
 	For(A,0,N-1
 		[A](A+1,B+1
 		Ans-13(Ans=25)-2(Ans=20
+		If Ans>25:RED
 		Pt-On(3A+5,~3B-5,1,Ans
 	End
 End
 
 //Draw Isometric Terrain
 For(A,1,BROWN //substituting values in For loops with colors
-	~80-R(A-1->S
+	~80+20(R-2)-R(A-1->S
 	132-6A->T
 	For(B,1,BROWN
 		[A](B,A)-19->V
 		BROWN+2(Ans<2)+3(Ans=2->C
 		BLACK-2(Ans=LTBLUE->O
-		If randInt(0,1) and V>2
+		If V>2 and randInt(0,1
 		MEDGRAY->C
 		T+6B->X
 		S-BR-R+6(V-1->Z
@@ -35,6 +36,8 @@ For(A,1,BROWN //substituting values in For loops with colors
 		For(I,Z-R+1,Ans+R-2
 			Line(X-5,I,X+5,I,C,1
 		End
+		Pt-Off(X-5,Z-R+1,4
+		Pt-Off(X+5,Z-R+1,4
 		
 		//Complete rest of fill at top
 		Line(X-2R,Ans+R-2,X+2R,Ans+R-2,C,1
@@ -43,7 +46,7 @@ For(A,1,BROWN //substituting values in For loops with colors
 		//Draw grass
 		If V>2 and C!=MEDGRAY
 		Then
-			For(I,0,3,.2
+			For(I,0,3,.249
 				Line(X-6+2I,Ans-I,X+2I,Ans+R-I,GREEN,1
 			End
 		End

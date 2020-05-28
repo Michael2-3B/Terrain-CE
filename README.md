@@ -13,6 +13,8 @@ Examples:
 The generator algorithm works by providing height values in a matrix that are no more than 1 higher or lower than the neighboring nodes.
 The smoothing code afterwards removes one block dips and spikes.
 
+If you want, you can try out the pyramid by downloading [B].8xm, and then store it into matrix [A] when you want to use it.
+
 Also note, when prompted for a seed in GENERATE.8xp, you may enter any real value, or type 0 to use a random seed.
 
 Forum Thread:
