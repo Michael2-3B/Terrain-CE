@@ -1,0 +1,221 @@
+//Set up graph window
+0->Xmin:264->Xmax
+~164->Ymin:0->Ymax
+Float
+GridOff:AxesOff
+16->N
+
+//Main Menu
+Lbl 0
+Menu("        Terrain CE        ","Generate",1,"Edit",2,"Render",3,"View Graph",4,"Quit",5
+
+//Generator
+Lbl 1
+ClrHome
+Output(10,1,"(Enter [i] for random seed)
+Input "Seed:",theta
+If imag(theta:Then
+	int(randstartTmr->theta
+	Ans->rand
+	Output(1,6,Ans
+Else
+	theta->rand
+End
+DelVar [A]{N,N->dim([A]
+randInt(20,25->[A](1,1
+~1->C
+100/(2N-2->G
+Ans->P
+Output(9,1,"Generating...
+For(A,1,N
+	Output(10,1,toString(int(P))+"%
+	P+G->P
+	For(B,1,N
+		If C=~1
+		DelVar C2->B
+		randInt(~1,1
+		If A=1
+		Then
+			Ans+[A](A,B-1
+		Else
+			If A>1 and B=1
+			Then
+				Ans+[A](A-1,B
+			Else
+				If A>1 and B>1
+				Then
+					If [A](A,B-1)!=[A](A-1,B
+					Then
+						int(median({[A](A,B-1),[A](A-1,B
+					Else
+						Ans+[A](A,B-1
+					End
+				End
+			End
+		End
+		If Ans<20:20
+		If Ans>25:25
+		Ans->[A](A,B
+	End
+End
+Output(9,1,"Smoothing... 
+If [A](1,1)!=[A](2,1) and [A](2,1)=[A](1,2
+[A](2,1)->[A](1,1
+If [A](1,N)!=[A](2,N) and [A](2,N)=[A](1,N-1
+[A](2,N)->[A](1,N
+If [A](N,1)!=[A](N,2) and [A](N,2)=[A](N-1,1
+[A](N,2)->[A](N,1
+If [A](N,N)!=[A](N-1,N) and [A](N-1,N)=[A](N,N-1
+[A](N-1,N)->[A](N,N
+For(C,2,N-1
+	If [A](1,C)!=[A](1,C-1) and not(variance({[A](1,C-1),[A](2,C),[A](1,C+1
+	[A](1,C-1)->[A](1,C
+End
+For(C,2,N-1
+	If [A](C,1)!=[A](C-1,1) and not(variance({[A](C-1,1),[A](C,2),[A](C+1,1
+	[A](C-1,1)->[A](C,1
+End
+For(C,2,N-1
+	If [A](C,N)!=[A](C-1,N) and not(variance({[A](C-1,N),[A](C,N-1),[A](C+1,N
+	[A](C-1,N)->[A](C,N
+End
+For(C,2,N-1
+	If [A](N,C)!=[A](N,C-1) and not(variance({[A](N,C-1),[A](N-1,C),[A](N,C+1
+	[A](N,C-1)->[A](N,C
+End
+For(A,2,N-1
+	Output(10,1,toString(int(P))+"%
+	P+G->P
+	For(B,2,N-1
+		If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
+		[A](A-1,B)->[A](A,B
+	End
+End
+Goto 3 //Jump to rendering
+
+//Map Editor
+Lbl 2
+ClrDraw
+BackgroundOn DarkGray
+Line(122,~23,122,~139,Red
+Line(122,~139,238,~139,Red
+Line(122,~23,238,~23,Red
+Line(238,~23,238,~139,Red
+TextColor(Black
+Text(150,0," New
+Text(150,48," Load [A]
+Text(150,168," Render
+Text(150,227," Exit
+Repeat sum(Ans={11,12,15,45
+	getKey
+End
+Ans->K
+If sum(Ans={15,45:Goto 0
+Lbl 11
+If K=11
+Then
+	DelVar [A]{N,N->dim([A]
+	Fill(20,[A]
+End
+For(A,0,N-1
+	For(B,0,N-1
+		[A](B+1,A+1
+		Ans-13(Ans=25)-2(Ans=20
+		Pt-On(7B+128,~7A-29,1,Ans
+		Pt-On(7B+128,~7A-29,2,Ans
+	End
+End
+Text(56,2," Use arrow keys
+Text(68,2," for cursor
+Text(80,2," and +-
+Text(92,2," to change block
+DelVar ADelVar B
+Repeat sum(K={11,14,15,45
+	Pt-On(7B+128,~7A-29,Red
+Repeat Ans:getKey:End
+	Ans->K
+	[A](B+1,A+1
+	Ans+(K=95)(Ans<25)-(K=85)(Ans>20->C
+	Ans->[A](B+1,A+1
+	Ans-13(Ans=25)-2(Ans=20
+	Pt-On(7B+128,~7A-29,Ans
+	Pt-On(7B+128,~7A-29,2,Ans
+	A-(K=25)(A>0)+(K=34)(A<15->A
+	B-(K=24)(B>0)+(K=26)(B<15->B
+End
+If K=11:Goto 11 //Generate blank map
+If K=14:Goto 3 //Jump to rendering
+Goto 0 //Goto Menu
+
+//Isometric Terrain Renderer
+Lbl 3
+ClrHome
+Repeat Ans
+	Disp "Stones:0 Grass:1 Snow:2
+	Input C
+	sum(C={0,1,2
+	If not(Ans
+	Disp "Invalid Entry.
+End
+ClrDraw
+BackgroundOn DarkGray
+//MiniMap
+Red
+Line(3,~3,3,~52,Ans,1
+Line(3,~3,52,~3,Ans,1
+Line(3,~52,52,~52,Ans,1
+Line(52,~3,52,~52,Ans,1
+For(B,0,15
+	For(A,0,15
+		[A](A+1,B+1
+		Ans-Magenta(Ans=25)-2(Ans=White
+		Pt-On(3A+5,~3B-5,1,Ans
+	End
+End
+//Render
+For(A,1,Brown
+	~78-2A->S
+	132-6A->T
+	For(B,1,Brown
+		[A](B,A)-Yellow->V
+		If not(C
+		Then
+			Yellow-(Ans<2)+V(Ans>1)-13(Ans=6
+		Else
+			Brown+2(V<2)+3(V=2)(C=1
+		End
+		Ans->I%
+		Black-2(Ans=LtBlue)+Red(Ans=Black->O
+		T+6B->|N
+		S-2B+6V-8->Z
+		S-2B+6V-2
+		For(I,Z,Ans,2
+			Line(|N-5+(I=Z),I,|N+5-(I=Z),I,I%
+		End
+		Line(|N-1,Ans+1,|N+1,Ans+1,I%,1
+		For(I,0,~1+3(I%=Brown
+			Line(|N-4+2I,Ans-I+1,|N+2I,Ans+1,8+6C
+		End
+		Line(|N,Z-2,|N,Ans-2,O,1
+		For(I,~6,6,Black
+			Line(|N+I,Z,|N,Z-2,O,1
+			Line(|N+I,Ans,|N+I,Z,O,1
+			Line(|N,Ans+2,|N+I,Ans,O,1
+			Line(|N+I,Ans,|N,Ans-2,O,1
+		End
+	End
+End
+Repeat sum(getKey={21,45,105
+End
+Goto 0 //Goto Menu
+
+//View Graphscreen
+Lbl 4
+DispGraph
+Repeat sum(getKey={21,45,105
+End
+Goto 0 //Goto Menu
+
+//Exit
+Lbl 5
+Return
