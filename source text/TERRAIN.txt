@@ -22,9 +22,9 @@ Else
 	theta->rand
 End
 DelVar [A]{N,N->dim([A]
-randInt(20,25->[A](1,1
+randInt(White,25->[A](1,1
 ~1->C
-100/(2N-2->G
+50/(N-1->G
 Ans->P
 Output(9,1,"Generating...
 For(A,1,N
@@ -53,7 +53,7 @@ For(A,1,N
 				End
 			End
 		End
-		If Ans<20:20
+		If Ans<White:White
 		If Ans>25:25
 		Ans->[A](A,B
 	End
@@ -84,7 +84,7 @@ For(C,2,N-1
 	[A](N,C-1)->[A](N,C
 End
 For(A,2,N-1
-	Output(10,1,toString(int(P))+"%
+	Output(Blue,1,toString(int(P))+"%
 	P+G->P
 	For(B,2,N-1
 		If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
@@ -102,25 +102,25 @@ Line(122,~139,238,~139,Red
 Line(122,~23,238,~23,Red
 Line(238,~23,238,~139,Red
 TextColor(Black
-Text(150,0," New
-Text(150,48," Load [A]
-Text(150,168," Render
-Text(150,227," Exit
-Repeat sum(Ans={11,12,15,45
+Text(150,1," New
+Text(150,41," Load [A]
+Text(150,174," Render
+Text(150,233," Exit
+Repeat sum(Ans={Red,Black,Orange,45
 	getKey
 End
 Ans->K
-If sum(Ans={15,45:Goto 0
+If sum(Ans={Orange,45:Goto 0
 Lbl 11
-If K=11
+If K=Red
 Then
 	DelVar [A]{N,N->dim([A]
-	Fill(20,[A]
+	Fill(White,[A]
 End
 For(A,0,N-1
 	For(B,0,N-1
 		[A](B+1,A+1
-		Ans-13(Ans=25)-2(Ans=20
+		Ans-Magenta(Ans=25)-2(Ans=White
 		Pt-On(7B+128,~7A-29,1,Ans
 		Pt-On(7B+128,~7A-29,2,Ans
 	End
@@ -130,21 +130,33 @@ Text(68,2," for cursor
 Text(80,2," and +-
 Text(92,2," to change block
 DelVar ADelVar B
-Repeat sum(K={11,14,15,45
-	Pt-On(7B+128,~7A-29,Red
+Repeat sum(K={Red,Green,Orange,45
+	Line(7B+125,~7A-26,7B+125,~7A-32,Red,1
+	Line(7B+125,~7A-26,7B+131,~7A-26,Red,1
+	Line(7B+131,~7A-26,7B+131,~7A-32,Red,1
+	Line(7B+125,~7A-32,7B+131,~7A-32,Red,1
 Repeat Ans:getKey:End
 	Ans->K
 	[A](B+1,A+1
-	Ans+(K=95)(Ans<25)-(K=85)(Ans>20->C
-	Ans->[A](B+1,A+1
-	Ans-13(Ans=25)-2(Ans=20
+	If K=85 or K=95
+	Then
+		If K=95
+		Ans+(Ans<25->C
+		If K=85
+		Ans-(Ans>White->C
+		Ans->[A](B+1,A+1
+	End
+	Ans-Magenta(Ans=25)-2(Ans=White
 	Pt-On(7B+128,~7A-29,Ans
 	Pt-On(7B+128,~7A-29,2,Ans
-	A-(K=25)(A>0)+(K=34)(A<15->A
-	B-(K=24)(B>0)+(K=26)(B<15->B
+	If sum(K={DarkGray,25,26,34
+	Then
+		A-(K=25)(A>0)+(K=34)(A<Orange->A
+		B-(K=DarkGray)(B>0)+(K=26)(B<Orange->B
+	End
 End
-If K=11:Goto 11 //Generate blank map
-If K=14:Goto 3 //Jump to rendering
+If K=Red:Goto 11 //Generate blank map
+If K=Green:Goto 3 //Jump to rendering
 Goto 0 //Goto Menu
 
 //Isometric Terrain Renderer
@@ -165,54 +177,59 @@ Line(3,~3,3,~52,Ans,1
 Line(3,~3,52,~3,Ans,1
 Line(3,~52,52,~52,Ans,1
 Line(52,~3,52,~52,Ans,1
-For(B,0,15
-	For(A,0,15
+For(B,0,Orange
+	For(A,0,Orange
 		[A](A+1,B+1
 		Ans-Magenta(Ans=25)-2(Ans=White
 		Pt-On(3A+5,~3B-5,1,Ans
 	End
 End
 //Render
+If not(C:Then
+	"Yellow-(Ans<2)+V(Ans>1)-Magenta(Ans=6->|u
+Else
+	"Brown+2(V<2
+	If C=1
+	Ans+")+3(V=2
+	Ans->|u
+End
 For(A,1,Brown
 	~78-2A->S
 	132-6A->T
 	For(B,1,Brown
 		[A](B,A)-Yellow->V
-		If not(C
-		Then
-			Yellow-(Ans<2)+V(Ans>1)-13(Ans=6
-		Else
-			Brown+2(V<2)+3(V=2)(C=1
-		End
-		Ans->I%
-		Black-2(Ans=LtBlue)+Red(Ans=Black->O
+		|u->I%
+		Black-2(Ans=LtBlue)+Red(Ans=Black->PV
 		T+6B->|N
-		S-2B+6V-8->Z
+		S-2B+6V-8->FV
 		S-2B+6V-2
-		For(I,Z,Ans,2
-			Line(|N-5+(I=Z),I,|N+5-(I=Z),I,I%
+		Pt-On(|N-3,FV+3,2,PV
+		Pt-On(|N+3,FV+3,2,PV
+		Pt-On(|N-2,FV+2,2,I%
+		Pt-On(|N+2,FV+2,2,I%
+		Pt-On(|N,FV+4,2,I%
+		If I%=Brown:Then
+			Pt-On(|N,Ans,1,8+6C
+			Line(|N-4,Ans,|N+4,Ans,8+6C
 		End
-		Line(|N-1,Ans+1,|N+1,Ans+1,I%,1
-		For(I,0,~1+3(I%=Brown
-			Line(|N-4+2I,Ans-I+1,|N+2I,Ans+1,8+6C
-		End
-		Line(|N,Z-2,|N,Ans-2,O,1
+		Pt-Off(|N-5,FV-1,4
+		Pt-Off(|N+5,FV-1,4
+		Line(|N,FV-2,|N,Ans-2,PV,1
 		For(I,~6,6,Black
-			Line(|N+I,Z,|N,Z-2,O,1
-			Line(|N+I,Ans,|N+I,Z,O,1
-			Line(|N,Ans+2,|N+I,Ans,O,1
-			Line(|N+I,Ans,|N,Ans-2,O,1
+			Line(|N+I,FV,|N,FV-2,PV,1
+			Line(|N,Ans+2,|N+I,Ans,PV,1
+			Line(|N+I,Ans,|N,Ans-2,PV,1
 		End
 	End
 End
-Repeat sum(getKey={21,45,105
+Repeat sum(getKey={LtGray,45,105
 End
 Goto 0 //Goto Menu
 
 //View Graphscreen
 Lbl 4
 DispGraph
-Repeat sum(getKey={21,45,105
+Repeat sum(getKey={LtGray,45,105
 End
 Goto 0 //Goto Menu
 
