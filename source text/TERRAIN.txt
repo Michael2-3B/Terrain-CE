@@ -84,33 +84,34 @@ For(C,2,N-1
 	[A](N,C-1)->[A](N,C
 End
 For(A,2,N-1
-	Output(Blue,1,toString(int(P))+"%
+	Output(10,1,toString(int(P))+"%
 	P+G->P
 	For(B,2,N-1
 		If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
-		[A](A-1,B)->[A](A,B
+		[A](A-1,B->[A](A,B
 	End
 End
-Goto 3 //Jump to rendering
+Goto 0 //Jump to main menu
 
 //Map Editor
 Lbl 2
 ClrDraw
 BackgroundOn DarkGray
-Line(122,~23,122,~139,Red
-Line(122,~139,238,~139,Red
-Line(122,~23,238,~23,Red
-Line(238,~23,238,~139,Red
+For(A,0,3
+	Line(122+116(A=3),~23-116(A=1),238-116not(A),~139+116(A=2),Red
+End
 TextColor(Black
-Text(150,1," New
-Text(150,41," Load [A]
-Text(150,174," Render
-Text(150,233," Exit
-Repeat sum(Ans={Red,Black,Orange,45
+Text(150,0," New
+Text(150,36," Load [A]
+Text(150,101," Generate
+Text(150,175," Render
+Text(150,230," Exit
+Repeat sum(Ans={Red,Black,Magenta,Orange,45
 	getKey
 End
 Ans->K
 If sum(Ans={Orange,45:Goto 0
+If Ans=Magenta:Goto 1
 Lbl 11
 If K=Red
 Then
@@ -118,11 +119,11 @@ Then
 	Fill(White,[A]
 End
 For(A,0,N-1
-	For(B,0,N-1
-		[A](B+1,A+1
+	For([recursiven],0,N-1
+		[A]([recursiven]+1,A+1
 		Ans-Magenta(Ans=25)-2(Ans=White
-		Pt-On(7B+128,~7A-29,1,Ans
-		Pt-On(7B+128,~7A-29,2,Ans
+		Pt-On(7[recursiven]+128,~7A-29,1,Ans
+		Pt-On(7[recursiven]+128,~7A-29,2,Ans
 	End
 End
 Text(56,2," Use arrow keys
@@ -130,12 +131,12 @@ Text(68,2," for cursor
 Text(80,2," and +-
 Text(92,2," to change block
 DelVar ADelVar B
-Repeat sum(K={Red,Green,Orange,45
+Repeat sum(K={Red,Magenta,Green,Orange,45
 	Line(7B+125,~7A-26,7B+125,~7A-32,Red,1
 	Line(7B+125,~7A-26,7B+131,~7A-26,Red,1
 	Line(7B+131,~7A-26,7B+131,~7A-32,Red,1
 	Line(7B+125,~7A-32,7B+131,~7A-32,Red,1
-Repeat Ans:getKey:End
+	Repeat Ans:getKey:End
 	Ans->K
 	[A](B+1,A+1
 	If K=85 or K=95
@@ -156,82 +157,75 @@ Repeat Ans:getKey:End
 	End
 End
 If K=Red:Goto 11 //Generate blank map
+If K=Magenta:Goto 1 //Jump to generator
 If K=Green:Goto 3 //Jump to rendering
-Goto 0 //Goto Menu
+Goto 0 //Jump to main menu
 
-//Isometric Terrain Renderer
+//Isometric Renderer
 Lbl 3
 ClrHome
 Repeat Ans
 	Disp "Stones:0 Grass:1 Snow:2
 	Input C
-	sum(C={0,1,2
+	max(C={0,1,2
 	If not(Ans
 	Disp "Invalid Entry.
 End
 ClrDraw
 BackgroundOn DarkGray
 //MiniMap
-Red
-Line(3,~3,3,~52,Ans,1
-Line(3,~3,52,~3,Ans,1
-Line(3,~52,52,~52,Ans,1
-Line(52,~3,52,~52,Ans,1
+For(A,0,3
+	Line(3+49(A=3),~3-49(A=2),52-49not(A),~52+49(A=1),Red,1
+End
+{LtBlue,LtGray,MedGray,Gray,DarkGray,Black->L1
 For(B,0,Orange
-	For(A,0,Orange
-		[A](A+1,B+1
-		Ans-Magenta(Ans=25)-2(Ans=White
-		Pt-On(3A+5,~3B-5,1,Ans
+	For([recursiven],0,Orange
+		Pt-On(3[recursiven]+5,~3B-5,1,L1([A]([recursiven]+1,B+1)-Yellow
 	End
 End
 //Render
-If not(C:Then
-	"Yellow-(Ans<2)+V(Ans>1)-Magenta(Ans=6->|u
-Else
-	"Brown+2(V<2
-	If C=1
-	Ans+")+3(V=2
-	Ans->|u
-End
+If C
+{LtBlue,Yellow-3(C=2),Brown,Brown,Brown,Brown->L1
+Black-2(L1=LtBlue)+Red(L1=Black->L2
+8+6C->C
 For(A,1,Brown
-	~78-2A->S
+	~83-2A->S
 	132-6A->T
-	For(B,1,Brown
-		[A](B,A)-Yellow->V
-		|u->I%
-		Black-2(Ans=LtBlue)+Red(Ans=Black->PV
-		T+6B->|N
-		S-2B+6V-8->FV
-		S-2B+6V-2
-		Pt-On(|N-3,FV+3,2,PV
-		Pt-On(|N+3,FV+3,2,PV
-		Pt-On(|N-2,FV+2,2,I%
-		Pt-On(|N+2,FV+2,2,I%
-		Pt-On(|N,FV+4,2,I%
-		If I%=Brown:Then
-			Pt-On(|N,Ans,1,8+6C
-			Line(|N-4,Ans,|N+4,Ans,8+6C
+	For([recursiven],1,Brown
+		T+6[recursiven]->|N
+		[A]([recursiven],A)-Yellow->PMT
+		L1(PMT->I%
+		L2(PMT->PV
+		S-2[recursiven]+6PMT->FV
+		FV+3
+		Pt-On(|N-3,FV,2,PV
+		Pt-On(|N+3,FV,2,PV
+		Pt-On(|N-2,FV,2,I%
+		Pt-On(|N+2,FV,2,I%
+		Pt-On(|N,FV+1,2,I%
+		Pt-On(|N,FV-3,1,I%
+		If I%=Brown
+		Then
+			Pt-On(|N,Ans,1,C
+			Line(|N-4,Ans,|N+4,Ans,C
 		End
-		Pt-Off(|N-5,FV-1,4
-		Pt-Off(|N+5,FV-1,4
-		Line(|N,FV-2,|N,Ans-2,PV,1
-		For(I,~6,6,Black
-			Line(|N+I,FV,|N,FV-2,PV,1
-			Line(|N,Ans+2,|N+I,Ans,PV,1
-			Line(|N+I,Ans,|N,Ans-2,PV,1
-		End
+		//No loops for speed purposes
+		Line(|N,FV-5,|N,FV+1,PV,1
+      		Line(|N-6,FV-3,|N,FV-5,PV,1
+      		Line(|N+6,FV-3,|N,FV-5,PV,1
+      		Line(|N,FV+5,|N-6,Ans,PV,1
+      		Line(|N,FV+5,|N+6,Ans,PV,1
+      		Line(|N-6,Ans,|N,FV+1,PV,1
+      		Line(|N+6,Ans,|N,FV+1,PV,1
 	End
 End
-Repeat sum(getKey={LtGray,45,105
-End
-Goto 0 //Goto Menu
 
 //View Graphscreen
 Lbl 4
 DispGraph
 Repeat sum(getKey={LtGray,45,105
 End
-Goto 0 //Goto Menu
+Goto 0 //Jump to main menu
 
 //Exit
 Lbl 5
