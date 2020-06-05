@@ -16,7 +16,5 @@ There is also now a map editor in the program to make a custom heightmap! Check 
 
 ![Height Map Editor](https://raw.githubusercontent.com/Michael2-3B/Terrain-CE/master/screenshots/mapeditor.png)
 
-If you want, you can try out the pyramid map by downloading [[B].8xm](https://raw.githubusercontent.com/Michael2-3B/Terrain-CE/master/[B].8xm), and then make sure to store it into matrix [A] when you want to use it.
-
 Forum Thread:
 https://www.cemetech.net/forum/viewtopic.php?p=285909#285909
