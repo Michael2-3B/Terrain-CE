@@ -22,9 +22,7 @@ Else
 	theta->rand
 End
 DelVar L3256->dim(L3
-//DelVar [A]{N,N->dim([A]
 randInt(White,25->L3(1
-//randInt(White,25->[A](1,1
 ~1->C
 50/(N-1->G
 Ans->P
@@ -40,23 +38,18 @@ For(A,1,N
 		If A=1
 		Then
 			Ans+L3(T-1
-			//Ans+[A](A,B-1
 		Else
 			If A>1 and B=1
 			Then
 				Ans+L3(T-16
-				//Ans+[A](A-1,B
 			Else
 				If A>1 and B>1
 				Then
-					//If [A](A,B-1)!=[A](A-1,B
 					If L3(T-1)!=L3(T-16
 					Then
 						int(median({L3(T-1),L3(T-16
-						//int(median({[A](A,B-1),[A](A-1,B
 					Else
 						Ans+L3(T-1
-						//Ans+[A](A,B-1
 					End
 				End
 			End
@@ -64,51 +57,30 @@ For(A,1,N
 		If Ans<White:White
 		If Ans>25:25
 		Ans->L3(T
-		//Ans->[A](A,B
 	End
 End
 Output(9,1,"Smoothing... 
 If L3(1)!=L3(17) and L3(17)=L3(2
 L3(17)->L3(1
-//If [A](1,1)!=[A](2,1) and [A](2,1)=[A](1,2
-//[A](2,1)->[A](1,1
 If L3(N)!=L3(16+N) and L3(16+N)=L3(15
 L3(16+N)->L3(N
-//If [A](1,N)!=[A](2,N) and [A](2,N)=[A](1,N-1
-//[A](2,N)->[A](1,N
 If L3(241)!=L3(242) and L3(242)=L3(225
 L3(242)->L3(241
-//If [A](N,1)!=[A](N,2) and [A](N,2)=[A](N-1,1
-//[A](N,2)->[A](N,1
 If L3(256)!=L3(240) and L3(240)=L3(255
 L3(240)->L3(256
-//If [A](N,N)!=[A](N-1,N) and [A](N-1,N)=[A](N,N-1
-//[A](N-1,N)->[A](N,N
 For(C,2,N-1
-	//If [A](1,C)!=[A](1,C-1) and not(variance({[A](1,C-1),[A](2,C),[A](1,C+1
-	//[A](1,C-1)->[A](1,C
-
 	If L3(C)!=L3(C-1) and not(variance({L3(C-1),L3(16+C),L3(C+1
 	L3(C-1)->L3(C
 End
 For(C,2,N-1
-	//If [A](C,1)!=[A](C-1,1) and not(variance({[A](C-1,1),[A](C,2),[A](C+1,1
-	//[A](C-1,1)->[A](C,1
-
 	If L3(16(C-1)+1)!=L3(16(C-2)+1) and not(variance({L3(16(C-2)+1),L3(16(C-1)+2),L3(16C+1
 	L3(16(C-2)+1)->L3(16(C-1)+1
 End
 For(C,2,N-1
-	//If [A](C,N)!=[A](C-1,N) and not(variance({[A](C-1,N),[A](C,N-1),[A](C+1,N
-	//[A](C-1,N)->[A](C,N
-
 	If L3(16(C-1)+N)!=L3(16(C-2)+N) and not(variance({L3(16(C-2)+N),L3(16(C-1)+N-1),L3(16C+N
 	L3(16(C-2)+N)->L3(16(C-1)+N
 End
 For(C,2,N-1
-	//If [A](N,C)!=[A](N,C-1) and not(variance({[A](N,C-1),[A](N-1,C),[A](N,C+1
-	//[A](N,C-1)->[A](N,C
-
 	If L3(16(N-1)+C)!=L3(16(N-1)+C-1) and not(variance({L3(16(N-1)+C-1),L3(16(N-2)+C),L3(16(N-1)+C+1
 	L3(16(N-1)+C-1)->L3(16(N-1)+C
 End
@@ -116,9 +88,6 @@ For(A,2,N-1
 	Output(10,1,toString(int(P))+"%
 	P+G->P
 	For(B,2,N-1
-		//If [A](A,B)!=[A](A-1,B) and not(variance({[A](A-1,B),[A](A+1,B),[A](A,B-1),[A](A,B+1)
-		//[A](A-1,B->[A](A,B
-
 		If L3(16(A-1)+B)!=L3(16(A-2)+B) and not(variance({L3(16(A-2)+B),L3(16A+B),L3(16(A-1)+B-1),L3(16(A-1)+B+1
 		L3(16(A-2)+B)->L3(16(A-1)+B
 	End
@@ -134,7 +103,7 @@ For(A,0,3
 End
 TextColor(Black
 Text(150,0," New
-Text(150,36," Load [A]
+Text(150,44," Load
 Text(150,101," Generate
 Text(150,175," Render
 Text(150,230," Exit
@@ -149,12 +118,9 @@ If K=Red
 Then
 	DelVar L3256->dim(L3
 	Fill(White,L3
-	//DelVar [A]{N,N->dim([A]
-	//Fill(White,[A]
 End
 For(A,0,N-1
 	For([recursiven],0,N-1
-		//[A]([recursiven]+1,A+1
 		L3(16[recursiven]+A+1
 		Ans-Magenta(Ans=25)-2(Ans=White
 		Pt-On(7[recursiven]+128,~7A-29,1,Ans
@@ -174,7 +140,6 @@ Repeat sum(K={Red,Magenta,Green,Orange,45
 	Repeat Ans:getKey:End
 	Ans->K
 	L3(16B+A+1
-	//[A](B+1,A+1
 	If K=85 or K=95
 	Then
 		If K=95
@@ -182,7 +147,6 @@ Repeat sum(K={Red,Magenta,Green,Orange,45
 		If K=85
 		Ans-(Ans>White->C
 		Ans->L3(16B+A+1
-		//Ans->[A](B+1,A+1
 	End
 	Ans-Magenta(Ans=25)-2(Ans=White
 	Pt-On(7B+128,~7A-29,Ans
@@ -210,30 +174,54 @@ Repeat Ans
 End
 ClrDraw
 BackgroundOn DarkGray
+TextColor(Black
+Text(150,0," Front
+Text(150,64," Back
+Text(150,121," Left
+Text(150,175," Right
+Text(150,230," Exit
 //MiniMap
 For(A,0,3
 	Line(3+49(A=3),~3-49(A=2),52-49not(A),~52+49(A=1),Red,1
 End
 {LtBlue,LtGray,MedGray,Gray,DarkGray,Black->L1
-For(B,0,Orange
+For(A,0,Orange
 	For([recursiven],0,Orange
-		//Pt-On(3[recursiven]+5,~3B-5,1,L1([A]([recursiven]+1,B+1)-Yellow
-		Pt-On(3[recursiven]+5,~3B-5,1,L1(L3(16[recursiven]+B+1)-Yellow
+		Pt-On(3[recursiven]+5,~3A-5,1,L1(L3(16[recursiven]+A+1)-Yellow
 	End
 End
+StorePic 1
 //Render
 If C
 {LtBlue,Yellow-3(C=2),Brown,Brown,Brown,Brown->L1
 Black-2(L1=LtBlue)+Red(L1=Black->L2
-8+6C->C
+DelVar R8+6C->C
+Lbl R
+TextColor(Red
+If not(R:Then
+	"16([recursiven]-1)+A
+	Text(150,0," Front
+End
+If R=1:Then
+	"273-16[recursiven]-A
+	Text(150,64," Back
+End
+If R=2:Then
+	"256-16A+[recursiven]
+	Text(150,121," Left
+End
+If R=3:Then
+	"16A-[recursiven]+1
+	Text(150,175," Right
+End
+Ans->|u
 For(A,1,Brown
 	~83-2A->S
 	132-6A->T
 	For([recursiven],1,Brown
 		T+6[recursiven]->|N
-		//[A]([recursiven],A)-Yellow->PMT
-		L3(16([recursiven]-1)+A)-Yellow->PMT
-		L1(PMT->I%
+		L3(|u)-Yellow->PMT
+		L1(Ans->I%
 		L2(PMT->PV
 		S-2[recursiven]+6PMT->FV
 		FV+3
@@ -250,20 +238,39 @@ For(A,1,Brown
 		End
 		//No loops for speed purposes
 		Line(|N,FV-5,|N,FV+1,PV,1
-      		Line(|N-6,FV-3,|N,FV-5,PV,1
-      		Line(|N+6,FV-3,|N,FV-5,PV,1
-      		Line(|N,FV+5,|N-6,Ans,PV,1
-      		Line(|N,FV+5,|N+6,Ans,PV,1
-      		Line(|N-6,Ans,|N,FV+1,PV,1
-      		Line(|N+6,Ans,|N,FV+1,PV,1
+      	Line(|N-6,FV-3,|N,FV-5,PV,1
+      	Line(|N+6,FV-3,|N,FV-5,PV,1
+      	Line(|N,FV+5,|N-6,Ans,PV,1
+      	Line(|N,FV+5,|N+6,Ans,PV,1
+      	Line(|N-6,Ans,|N,FV+1,PV,1
+      	Line(|N+6,Ans,|N,FV+1,PV,1
 	End
 End
 
 //View Graphscreen
 Lbl 4
 DispGraph
-Repeat sum(getKey={LtGray,45,105
+Repeat sum(K={Red,Black,Magenta,Green,Orange,LtGray,45,105
+	Repeat Ans
+		getKey
+	End
+	Ans->K
+	If Ans=11 and R
+	0->R
+	If K=12 and R!=1
+	1->R
+	If K=13 and R!=2
+	2->R
+	If K=14 and R!=3
+	3->R
 End
+sum(K={11,12,13,14
+If Ans
+Then
+	ClrDraw
+	RecallPic 1
+End
+If Ans:Goto R
 Goto 0 //Jump to main menu
 
 //Exit
