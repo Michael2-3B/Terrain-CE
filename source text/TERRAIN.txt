@@ -215,6 +215,7 @@ If R=3:Then
 	Text(150,175," Right
 End
 Ans->|u
+startTmr->U
 For(A,1,Brown
 	~83-2A->S
 	132-6A->T
@@ -246,25 +247,28 @@ For(A,1,Brown
       	Line(|N+6,Ans,|N,FV+1,PV,1
 	End
 End
+checkTmr(U->U
+Text(0,60,Ans
 
 //View Graphscreen
 Lbl 4
 DispGraph
-Repeat sum(K={Red,Black,Magenta,Green,Orange,LtGray,45,105
+Repeat not(imag(Ans)) or sum(K={Orange,LtGray,45,105
 	Repeat Ans
 		getKey
 	End
 	Ans->K
-	If Ans=11 and R
+	[i]
+	If K=Red and R
 	0->R
-	If K=12 and R!=1
+	If K=Black and R!=1
 	1->R
-	If K=13 and R!=2
+	If K=Magenta and R!=2
 	2->R
-	If K=14 and R!=3
+	If K=Green and R!=3
 	3->R
 End
-sum(K={11,12,13,14
+not(imag(Ans
 If Ans
 Then
 	ClrDraw
