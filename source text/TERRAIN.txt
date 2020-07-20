@@ -247,8 +247,7 @@ For(A,1,Brown
       	Line(|N+6,Ans,|N,FV+1,PV,1
 	End
 End
-checkTmr(U->U
-Text(0,60,Ans
+Text(0,60,checkTmr(U
 
 //View Graphscreen
 Lbl 4
